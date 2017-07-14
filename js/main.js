@@ -1,9 +1,9 @@
 var game = new Phaser.Game(1100, 600, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
-function f () {
-    localValue = localStorage.getItem('myKey');
-    console.log(localValue + 'ss');
-}
+// function f () {
+//     localValue = localStorage.getItem('myKey');
+//     console.log(localValue + 'ss');
+// }
 
 
 function preload() {
@@ -42,7 +42,9 @@ var end;
 var start;
 var startTime;
 var endTime;
-var localValue;
+var button1;
+// var store = require('store');
+// var localValue;
 
 function create() {
 
@@ -73,6 +75,7 @@ function create() {
 
 
     button = game.add.button(100, 100, 'button', feed, this, 2, 1, 0);
+    button1 = game.add.button(300, 300, 'button', getStore, this, 2, 1, 0);
 
 
     hungerText = game.add.text(50, 16, 'hunger: 0', {fontSize: '10px', fill: '#000'});
@@ -87,17 +90,30 @@ function create() {
 function feed () {
     hunger ++;
     hungerText.text = 'hunger:' + hunger;
-    console.log('br' + hunger);
+    // console.log('br' + hunger);
     if(hunger > 10){
         hungerText.text = 'done!';
+        store.set('hunger',  hunger);
+        return
+        // console.log(hunger);
     }
-    time();
+    // console.log(hunger);
+
+    // time();
 }
+
+function getStore() {
+    console.log(store.get('hunger'));
+
+}
+
+
+// getStore();
 
 function time() {
     start = new Date();
     startTime = start.getTime();
-    saveLocal();
+    // saveLocal();
     // return startTime;
     // console.log(startTime);
 
@@ -118,11 +134,11 @@ function time() {
     // console.log(startTime, endTime);
 }
 
-function saveLocal() {
-    var stringTime = String(startTime);
-    localStorage.setItem('myKey', stringTime);
-
-}
+// function saveLocal() {
+//     var stringTime = String(startTime);
+//     localStorage.setItem('myKey', stringTime);
+//
+// }
 
 
 function hungerCheck () {
